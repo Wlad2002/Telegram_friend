@@ -1,0 +1,4 @@
+2023-02-27 20:45:15,657 INFO com.bot.Telegram_friend.TelegramFriendApplication[1.] [main] Starting TelegramFriendApplication using Java 19.0.2 with PID 16455 (/media/krava/Новый том/project/Telegram_friend/target/classes started by krava in /media/krava/Новый том/project/Telegram_friend)
+2023-02-27 20:45:15,658 DEBUG com.bot.Telegram_friend.TelegramFriendApplication[1.] [main] Running with Spring Boot v3.0.2, Spring v6.0.4
+2023-02-27 20:45:15,658 INFO com.bot.Telegram_friend.TelegramFriendApplication[1.] [main] No active profile set, falling back to 1 default profile: "default"
+2023-02-27 20:45:16,123 INFO com.bot.Telegram_friend.TelegramFriendApplication[1.] [main] Started TelegramFriendApplication in 0.741 seconds (process running for 1.519)
