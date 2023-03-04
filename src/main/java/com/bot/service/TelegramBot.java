@@ -4,9 +4,12 @@ import com.bot.config.BotConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
+import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -38,6 +41,13 @@ public class TelegramBot extends TelegramLongPollingBot {
     //обще доступные поля
     public TelegramBot(BotConfig config){
         this.config = config;
+        List<BotCommand> commandMenu = new ArrayList<>();
+        commandMenu.add(new BotCommand("/start","Главное меню"));
+        try{
+            this.execute(new SetMyCommands(commandMenu, new BotCommandScopeDefault(), null));
+        }catch (TelegramApiException e) {
+            log.error(ERROR_TEXT + e.getMessage());
+        }
     }
     @Override
     public String getBotUsername() {
