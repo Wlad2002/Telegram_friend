@@ -27,12 +27,12 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final String[] THIRD_SEMESTERS_CALLBACK = {"3_1_SEMESTER","3_2_SEMESTER"};//callback семестров 3 курса
     private final String[] FOURTH_SEMESTERS_CALLBACK = {"4_1_SEMESTER","4_2_SEMESTER"};//callback семестров 4 курса
     private final String[] FIRST_COURSE_FIRST_CALLBACK = {"BJCH","His","VOV","BJCHR","EMiTER","Inf","VM","Fiz","InGr","FIRST_COURSE"};//callback для кнопок 1 курс 1 семестр
-    private final String[] FIRST_COURSE_SECOND_CALLBACK = {"Him","Bel","Polit","InGr","Fil","VM","Fiz","InGr","FIRST_COURSE"};//callback для кнопок 1 курс 2 семестр
+    private final String[] FIRST_COURSE_SECOND_CALLBACK = {"Him","Bel","Polit","InGr2","Fil","VM2","Fiz2","Inform","FIRST_COURSE"};//callback для кнопок 1 курс 2 семестр
     private final String[] SECOND_COURSE_FIRST_CALLBACK = {"TRJSU","Rel","Kult","OSTiZI","EU","TOE","TPS","Ekon","OOTP","TDU","SECOND_COURSE"};//callback для кнопок 2 курс 1 семестр
-    private final String[] SECOND_COURSE_SECOND_CALLBACK = {"OsPr","OhTr","OMT","MARES","EU","WEB","TOE","TOAT","SECOND_COURSE"};//callback для кнопок 2 курс 2 семестр
+    private final String[] SECOND_COURSE_SECOND_CALLBACK = {"OsPr","OhTr","OMT","MARES","EU","WEB","TOE2","TOAT","SECOND_COURSE"};//callback для кнопок 2 курс 2 семестр
     private final String[]  THIRD_COURSE_FIRST_CALLBACK = {"TLEC","AiPOVS","OSiSP","POKPP","VOSP","LATS","Ek","EkJD","EMS","THIRD_COURSE"};//callback для кнопок 3 курс 1 семестр
-    private final String[] THIRD_COURSE_SECOND_CALLBACK = {"SII","OSiP","OPBD","TPO","EPUvIUS","EMiP","NUATiS","PEiO","THIRD_COURSE"};//callback для кнопок 3 курс 2 семестр
-    private final String[] FIRST_COURSE_FIRST = {"БЖЧ","История","ВОВ","БЖЧ радиоц.","ЭМиТЭР","Информатика","Высш. мат.","Физика","Инженерная графика","Назад"};//текст кнопок, 1 курс 1 семестр
+    private final String[] THIRD_COURSE_SECOND_CALLBACK = {"SII","OSiSP2","OPBD","TPO","EPUvIUS","EMiP","NUATiS","PEiO","THIRD_COURSE"};//callback для кнопок 3 курс 2 семестр
+    private final String[] FIRST_COURSE_FIRST = {"БЖЧ","История","ВОВ","БЖЧ радиац.","ЭМиТЭР","Информатика","Высш. мат.","Физика","Инженерная графика","Назад"};//текст кнопок, 1 курс 1 семестр
     private final String[] FIRST_COURSE_SECOND = {"Химия","Бел. яз.","Политология","Инженерная графика","Философия","Высш. мат.","Физика","Информатика","Назад"};//текст кнопок, 1 курс 2 семестр
     private final String[] SECOND_COURSE_FIRST = {"ТРЖСУ","Религиоведение","Культурология","ОСТиЗИ","ЭУ","ТОЭ","ТПС","Экономика","ООТП","ТДУ","Назад"};//текст кнопок, 2 курс 1 семестр
     private final String[] SECOND_COURSE_SECOND = {"Основы права","Охрана труда","ОМТ","МАРЭС","ЭУ","WEB-технологии","ТОЭ","ТОАТ","Назад"};//текст кнопок, 2 курс 2 семестр
