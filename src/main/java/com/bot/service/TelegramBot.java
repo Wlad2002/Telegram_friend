@@ -130,7 +130,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             } else if (callbackData.equals("BACK_CURS")) {
                 markupInline = newButton(4, "курс", COURSES_CALLBACK, null, false);
                 executeEditMessageText("Добро пожаловать в проект для помощи студентам с литературой и другими материалами. Выберите интересующий вас курс", chatId, messageId, markupInline);
-            }//else для обработки при выборе предмета
+            }else{//для обработки при выборе предмета
+                DataConnection.bdConnection();
+            }
             if (markupInline==null)
                 sendMessage(chatId, "Это кнопка находится в разработке", null);
         }catch (Exception e){
