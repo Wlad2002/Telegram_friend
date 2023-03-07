@@ -5,7 +5,7 @@ import java.sql.*;
 //import java.util.*;
 
 @Slf4j
-public class DataConnection {
+public abstract class DataConnection {
     private static Connection connection = null;
     private static Statement statement = null;
     public static void bdConnection(){
