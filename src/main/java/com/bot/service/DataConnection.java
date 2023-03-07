@@ -19,15 +19,18 @@ public class DataConnection {
             log.error("Error occurred: " + e.getMessage());
         }
     }
-    public static void getValues() throws SQLException {
+    public static String getURL(String callback) throws SQLException {
         try {
+            connection = DriverManager.getConnection("jdbc:sqlite:/media/krava/Новый том/Telegram_friend/src/main/resources/list");
             statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM COMPANY;");
             log.info("connect successful");
+            ResultSet rs = statement.executeQuery("SELECT * FROM First_course_first_semester");
+            log.info("URL successful");
+            return rs.getString("URL");
         }catch (Exception e){
             log.error("Error occurred: " + e.getMessage());
         }
-
+        return null;
 
     }
 }

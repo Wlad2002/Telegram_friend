@@ -131,7 +131,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 markupInline = newButton(4, "курс", COURSES_CALLBACK, null, false);
                 executeEditMessageText("Добро пожаловать в проект для помощи студентам с литературой и другими материалами. Выберите интересующий вас курс", chatId, messageId, markupInline);
             }else{//для обработки при выборе предмета
-                DataConnection.bdConnection();
+                //DataConnection.bdConnection();
+                //sendMessage(chatId,DataConnection.getURL(callbackData),null);
             }
             if (markupInline==null)
                 sendMessage(chatId, "Это кнопка находится в разработке", null);
