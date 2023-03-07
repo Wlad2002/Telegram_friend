@@ -8,21 +8,13 @@ import java.sql.*;
 public abstract class DataConnection {
     private static Connection connection = null;
     private static Statement statement = null;
-    public static void bdConnection(){
-        try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:/media/krava/Новый том/Telegram_friend/src/main/resources/list.sqbpro");
-            log.info("connect successful");
-        }catch (Exception e){
-            log.error("Error occurred: " + e.getMessage());
-        }
-    }
+
     public static String getURL(String callback) throws SQLException {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:/media/krava/Новый том/Telegram_friend/src/main/resources/list");
             statement = connection.createStatement();
             log.info("connect successful");
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM First_course_first_semester");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Items");
             while (resultSet.next()){
                 String callbackBD = resultSet.getString("Callback");
                 if(callback.equals(callbackBD)){

@@ -29,7 +29,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final String[] FIRST_COURSE_FIRST_CALLBACK = {"BJCH","His","VOV","BJCHR","EMiTER","Inf","VM","Fiz","InGr","FIRST_COURSE"};//callback для кнопок 1 курс 1 семестр
     private final String[] FIRST_COURSE_SECOND_CALLBACK = {"Him","Bel","Polit","InGr2","Fil","VM2","Fiz2","Inform","FIRST_COURSE"};//callback для кнопок 1 курс 2 семестр
     private final String[] SECOND_COURSE_FIRST_CALLBACK = {"TRJSU","Rel","Kult","OSTiZI","EU","TOE","TPS","Ekon","OOTP","TDU","SECOND_COURSE"};//callback для кнопок 2 курс 1 семестр
-    private final String[] SECOND_COURSE_SECOND_CALLBACK = {"OsPr","OhTr","OMT","MARES","EU","WEB","TOE2","TOAT","SECOND_COURSE"};//callback для кнопок 2 курс 2 семестр
+    private final String[] SECOND_COURSE_SECOND_CALLBACK = {"OsPr","OhTr","OMT","MARES","EU2","WEB","TOE2","TOAT","SECOND_COURSE"};//callback для кнопок 2 курс 2 семестр
     private final String[]  THIRD_COURSE_FIRST_CALLBACK = {"TLEC","AiPOVS","OSiSP","POKPP","VOSP","LATS","Ek","EkJD","EMS","THIRD_COURSE"};//callback для кнопок 3 курс 1 семестр
     private final String[] THIRD_COURSE_SECOND_CALLBACK = {"SII","OSiSP2","OPBD","TPO","EPUvIUS","EMiP","NUATiS","PEiO","THIRD_COURSE"};//callback для кнопок 3 курс 2 семестр
     private final String[] FIRST_COURSE_FIRST = {"БЖЧ","История","ВОВ","БЖЧ радиац.","ЭМиТЭР","Информатика","Высш. мат.","Физика","Инженерная графика","Назад"};//текст кнопок, 1 курс 1 семестр
@@ -109,12 +109,16 @@ public class TelegramBot extends TelegramLongPollingBot {
         try {
             if (callbackData.contains("COURSE")) {
                 switch (callbackData) {
-                    case "FIRST_COURSE" -> markupInline = newButton(2, "семестр", FIRST_SEMESTERS_CALLBACK, null, true);
-                    case "SECOND_COURSE" -> markupInline = newButton(2, "семестр", SECOND_SEMESTERS_CALLBACK, null, true);
-                    case "THIRD_COURSE" -> markupInline = newButton(2, "семестр", THIRD_SEMESTERS_CALLBACK, null, true);
-                    case "FOURTH_COURSE" -> markupInline = newButton(2, "семестр", FOURTH_SEMESTERS_CALLBACK, null, true);
+                    case "FIRST_COURSE" -> markupInline = newButton(2, " семестр", FIRST_SEMESTERS_CALLBACK, null, true);
+                    case "SECOND_COURSE" -> markupInline = newButton(2, " семестр", SECOND_SEMESTERS_CALLBACK, null, true);
+                    case "THIRD_COURSE" -> markupInline = newButton(2, " семестр", THIRD_SEMESTERS_CALLBACK, null, true);
+                    //case "FOURTH_COURSE" -> newButton(2, "семестр", FOURTH_SEMESTERS_CALLBACK, null, true);
                 }
-                executeEditMessageText("Выберите семестр", chatId, messageId, markupInline);
+                if (callbackData.equals("FOURTH_COURSE")){
+                    sendMessage(chatId,"Эта кнопка не доступна",null);
+                }else {
+                    executeEditMessageText("Выберите семестр", chatId, messageId, markupInline);
+                }
             } else if (callbackData.contains("SEMESTER")) {
                 switch (callbackData) {
                     case "1_1_SEMESTER" -> markupInline = newButton(10, null, FIRST_COURSE_FIRST_CALLBACK, FIRST_COURSE_FIRST, false);
@@ -128,14 +132,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
                 executeEditMessageText("Выберите интересующий предмет", chatId, messageId, markupInline);
             } else if (callbackData.equals("BACK_CURS")) {
-                markupInline = newButton(4, "курс", COURSES_CALLBACK, null, false);
+                markupInline = newButton(4, " курс", COURSES_CALLBACK, null, false);
                 executeEditMessageText("Добро пожаловать в проект для помощи студентам с литературой и другими материалами. Выберите интересующий вас курс", chatId, messageId, markupInline);
             }else{//для обработки при выборе предмета
                 //DataConnection.bdConnection();
                 sendMessage(chatId,DataConnection.getURL(callbackData),null);
             }
-            if (markupInline==null)
-                sendMessage(chatId, "Это кнопка находится в разработке", null);
         }catch (Exception e){
             log.error(ERROR_TEXT + e.getMessage());
         }
