@@ -13,12 +13,11 @@ public abstract class DataConnection {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:/media/krava/Новый том/Telegram_friend/src/main/resources/list");
             statement = connection.createStatement();
-            log.info("connect successful");
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Items");
             while (resultSet.next()){
                 String callbackBD = resultSet.getString("Callback");
                 if(callback.equals(callbackBD)){
-                    log.info("URL successful");
+                    log.info("URL успешно отправлено");
                     return resultSet.getString("URL");
                 }
             }
@@ -26,7 +25,7 @@ public abstract class DataConnection {
             statement.close();
             connection.close();
         }catch (Exception e){
-            log.error("Error occurred: " + e.getMessage());
+            log.error("Ошибка SQL: " + e.getMessage());
         }
         return null;
     }

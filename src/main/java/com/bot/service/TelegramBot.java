@@ -7,6 +7,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
@@ -19,9 +20,8 @@ import java.util.*;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
     //Блок для констант
-    private static final String ERROR_TEXT = "Error occurred: ";//константа для лога ошибок
     private final BotConfig config;
-    private final String[] COURSES_CALLBACK = {"FIRST_COURSE","SECOND_COURSE","THIRD_COURSE","FOURTH_COURSE"};//callback для кнопок курсов
+    private final String[] COURSES_CALLBACK = {"FIRST_COURSE","SECOND_COURSE","THIRD_COURSE","FOURTH_COURSE"};//callback для кнопок курсовf
     private final String[] FIRST_SEMESTERS_CALLBACK = {"1_1_SEMESTER","1_2_SEMESTER"};//callback семестров 1 курса
     private final String[] SECOND_SEMESTERS_CALLBACK = {"2_1_SEMESTER","2_2_SEMESTER"};//callback семестров 2 курса
     private final String[] THIRD_SEMESTERS_CALLBACK = {"3_1_SEMESTER","3_2_SEMESTER"};//callback семестров 3 курса
@@ -46,7 +46,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         try{
             this.execute(new SetMyCommands(commandMenu, new BotCommandScopeDefault(), null));
         }catch (TelegramApiException e) {
-            log.error(ERROR_TEXT + e.getMessage());
+            log.error("Ошибка меню команд: " + e.getMessage());
         }
     }
     @Override
@@ -60,8 +60,9 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {//основной метод для работы бота
         if(update.hasMessage() && update.getMessage().hasText()){
-            String messageText = update.getMessage().getText();
+            update.getMessage().getChat().getUserName();
             long chatId = update.getMessage().getChatId();
+            String messageText = update.getMessage().getText();
             switch (messageText){
                 case "/start":
                     InlineKeyboardMarkup markupInline = newButton(4,"курс",COURSES_CALLBACK,null,false);
@@ -84,8 +85,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             message.setReplyMarkup(inlineKeyboardMarkup);
         try {
             execute(message);
+            log.info("Сообщение отправлено");
         }catch (TelegramApiException e){
-            log.error(ERROR_TEXT + e.getMessage());
+            log.error("Ошибка отправки сообщения" + e.getMessage());
         }
     }
     private void executeEditMessageText(String text, long chatId, long messageId, InlineKeyboardMarkup inlineKeyboardMarkup){//метод замены любого сообщения
@@ -97,8 +99,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             message.setReplyMarkup(inlineKeyboardMarkup);
         try {
             execute(message);
+            log.info("Сообщение обновлено");
         } catch (TelegramApiException e) {
-            log.error(ERROR_TEXT + e.getMessage());
+            log.error("Ошибка редактирования сообщения(executeEditMessageText): " + e.getMessage());
         }
     }
     private void examination(Update update){//метод выбора ответа на нажатие кнопки
@@ -135,11 +138,10 @@ public class TelegramBot extends TelegramLongPollingBot {
                 markupInline = newButton(4, " курс", COURSES_CALLBACK, null, false);
                 executeEditMessageText("Добро пожаловать в проект для помощи студентам с литературой и другими материалами. Выберите интересующий вас курс", chatId, messageId, markupInline);
             }else{//для обработки при выборе предмета
-                //DataConnection.bdConnection();
                 sendMessage(chatId,DataConnection.getURL(callbackData),null);
             }
         }catch (Exception e){
-            log.error(ERROR_TEXT + e.getMessage());
+            log.error("Ошибка при обработки callback кнопок: " + e.getMessage());
         }
     }
     private InlineKeyboardMarkup newButton(int length, String textButton,String[] callback, String[] names, boolean flag_back){//создание заданного количества кнопок
@@ -164,7 +166,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     rowsInLine.add(row);
                 }
             }catch (Exception e) {
-                log.error(ERROR_TEXT + e.getMessage());
+                log.error("Ошибка создания кнопки: " + e.getMessage());
             }
         }else{
             try {
@@ -178,11 +180,10 @@ public class TelegramBot extends TelegramLongPollingBot {
                     rowsInLine.add(buttons[i]);
                 }
             }catch (Exception e){
-                log.error(ERROR_TEXT + e.getMessage());
+                log.error("Ошибка создания кнопки: " + e.getMessage());
             }
         }
         markupInline.setKeyboard(rowsInLine);
         return markupInline;
     }
 }
-//добавлены данные в БД 05.03.2023
